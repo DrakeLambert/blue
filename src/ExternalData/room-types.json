@@ -1,0 +1,20 @@
+[
+  {
+    "type": "bathroom",
+    "displayName": "Bathroom",
+    "description": "Nothing says clean like a new bathroom. Modernize it with new fixtures, paint, floors, counters, and more!",
+    "active": true
+  },
+  {
+    "type": "bedroom",
+    "displayName": "Bedroom",
+    "description": "Make the most personal room more personable. Add new flooring, trim, and the color of you!",
+    "active": false
+  },
+  {
+    "type": "kitchen",
+    "displayName": "Kitchen",
+    "description": "Working in the kitchen is more pleasant when it works for you! New appliances, floors, and more!",
+    "active": false
+  }
+]
