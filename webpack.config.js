@@ -2,7 +2,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
 	mode: 'development',
-	entry: './src/index.js',
+	entry: './src/index.jsx',
 	module: {
 		rules: [
 			{
@@ -29,13 +29,16 @@ module.exports = {
 			}
 		]
 	},
+	resolve: {
+		extensions: ['.js', '.jsx']
+	},
 	plugins: [
 		new HtmlWebpackPlugin({
 			inject: 'body'
 		})
 	],
 	devServer: {
-		contentBase: './dist'
+		historyApiFallback: true
 	},
 	output: {
 		filename: '[name].[contenthash].js'
