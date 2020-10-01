@@ -41,6 +41,7 @@ module.exports = {
 		historyApiFallback: true
 	},
 	output: {
-		filename: '[name].[contenthash].js'
+		filename: '[name].[contenthash].js',
+		publicPath: '/'
 	}
 }
