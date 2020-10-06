@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react'
 import JobTypePicker from './JobTypePicker'
-import roomTypes from '../../ExternalData/room-types.json'
+import roomTypes from './room-types.json'
 import {  useHistory } from 'react-router-dom'
 import { routes } from '..'
 
