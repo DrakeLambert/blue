@@ -1,6 +1,8 @@
 import React from 'react'
 import { Redirect, Route, Switch, useParams, useRouteMatch } from 'react-router-dom'
 import { routes } from '..'
+import Bathroom from './Bathroom'
+import RoomUnderConstruction from './RoomUnderConstruction'
 
 const QuoteYourJobRouter = () => {
 	const routeMatch = useRouteMatch()
@@ -16,7 +18,15 @@ const QuoteYourJobRouter = () => {
 const QuoteYourJob = () => {
 	const roomType = useParams().roomType
 
-	return <div>You've choosen room type: {roomType}</div>
+	const RoomTypeQuoter = RoomTypeComponentMap[roomType]
+	if (!RoomTypeQuoter) {
+		return <RoomUnderConstruction roomType={roomType} />
+	}
+	return <RoomTypeQuoter />
+}
+
+const RoomTypeComponentMap = {
+	'bathroom': Bathroom
 }
 
 export default QuoteYourJobRouter
