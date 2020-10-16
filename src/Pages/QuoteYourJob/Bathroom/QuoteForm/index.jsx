@@ -5,7 +5,7 @@ export default () => {
 	const [squareFootage, setSquareFootage] = useState('')
 	const handleSquareFootageChange = useCallback(e => {
 		const newValue = e.target.value
-		if (/^([1-9]\d*$)?/.test(newValue)) {
+		if (/^([1-9]\d*)?$/.test(newValue)) {
 			setSquareFootage(newValue)
 		}
 	}, [setSquareFootage])
