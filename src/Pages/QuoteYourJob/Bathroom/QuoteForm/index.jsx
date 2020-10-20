@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react'
 import { Button, Col, Form, Row } from 'react-bootstrap'
 
-export default () => {
+export default ({ onQuote }) => {
 	const [squareFootage, setSquareFootage] = useState('')
 	const handleSquareFootageChange = useCallback(e => {
 		const newValue = e.target.value
@@ -27,7 +27,10 @@ export default () => {
 		setVanityCountIsInvalid(!isVanityCountValid)
 
 		if (isSquareFootageValid && isVanityCountValid) {
-
+			onQuote({
+				squareFootage,
+				vanityCount
+			})
 		}
 	}, [squareFootage, vanityCount])
 

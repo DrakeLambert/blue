@@ -1,32 +1,55 @@
-import React from 'react'
-import { Redirect, Route, Switch, useParams, useRouteMatch } from 'react-router-dom'
-import { routes } from '..'
+import React, { useCallback, useState } from 'react'
+import { Redirect, Route, Switch, useHistory, useRouteMatch } from 'react-router-dom'
 import Bathroom from './Bathroom'
 import RoomUnderConstruction from './RoomUnderConstruction'
+import Total from './Total'
 
-const QuoteYourJobRouter = () => {
-	const routeMatch = useRouteMatch()
+export default () => {
+	const { url } = useRouteMatch()
 
 	return <Switch>
-		<Route path={`${routeMatch.path}/:roomType`} component={QuoteYourJob} />
-		<Route path='/'>
-			<Redirect to={routes.chooseJobType} />
+		<Route path={url + '/:roomType'}>
+			<QuoteYourJobRouter />
 		</Route>
 	</Switch>
 }
 
-const QuoteYourJob = () => {
-	const roomType = useParams().roomType
+const QuoteYourJobRouter = () => {
+	const { url, params: { roomType } } = useRouteMatch()
 
+	const [roomDetails, setRoomDetails] = useState()
+	const history = useHistory()
+	const handleQuote = useCallback(roomDetails => {
+		setRoomDetails({
+			roomType: roomType,
+			...roomDetails
+		})
+		history.push(url + '/total')
+	}, [setRoomDetails, roomType, url, history])
+
+	return <Switch>
+		<Route exact path={url + '/details'} >
+			<QuoteYourJob onQuote={handleQuote} roomType={roomType} />
+		</Route>
+
+		<Route exact path={url + '/total'} >
+			<Total roomDetails={roomDetails} />
+		</Route>
+
+		<Route exact path={url} >
+			<Redirect to={url + '/details'} />
+		</Route>
+	</Switch>
+}
+
+const QuoteYourJob = ({ onQuote, roomType }) => {
 	const RoomTypeQuoter = RoomTypeComponentMap[roomType]
 	if (!RoomTypeQuoter) {
 		return <RoomUnderConstruction roomType={roomType} />
 	}
-	return <RoomTypeQuoter />
+	return <RoomTypeQuoter onQuote={onQuote} />
 }
 
 const RoomTypeComponentMap = {
 	'bathroom': Bathroom
 }
-
-export default QuoteYourJobRouter
