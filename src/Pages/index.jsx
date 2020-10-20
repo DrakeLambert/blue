@@ -2,7 +2,7 @@ import React from 'react'
 import Container from 'react-bootstrap/Container'
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 import ChooseJobType from './ChooseJobType'
-import QuoteYourJobRouter from './QuoteYourJob'
+import QuoteYourJob from './QuoteYourJob'
 
 export const routes = {
 	chooseJobType: '/choose-job-type',
@@ -14,7 +14,7 @@ const App = () =>
 		<Container className='pt-3'>
 			<Switch>
 				<Route path={routes.chooseJobType} component={ChooseJobType} />
-				<Route path={routes.quoteYourJob} component={QuoteYourJobRouter} />
+				<Route path={routes.quoteYourJob} component={QuoteYourJob} />
 				<Route path='/'>
 					<Redirect to={routes.chooseJobType} />
 				</Route>
