@@ -18,10 +18,7 @@ const getQuote = ({roomType, ...roomDetails}) => {
         ? 144
         : 152
       )
-      const description = (isSingleVanity
-        ? 'Single'
-        : 'Double'
-      ) + ` vanity bathroom with ${squareFootage} square feet.`
+      const description = `${vanityCount} vanity bathroom with ${squareFootage} square feet`
       return {
         success: true,
         description,
@@ -31,7 +28,7 @@ const getQuote = ({roomType, ...roomDetails}) => {
     default:
       return {
         success: false,
-        description: `The room type ${roomType} hasn't been built yet!`
+        description: `The ${roomType} quoter hasn't been built yet!`
       }
   }
 }
