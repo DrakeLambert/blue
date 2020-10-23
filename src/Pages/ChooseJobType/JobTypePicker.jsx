@@ -3,7 +3,7 @@ import Card from 'react-bootstrap/Card'
 import React from 'react'
 import FullWidthButton from '../../Components/FullWidthButton'
 
-const JobTypePicker = ({roomTypes, onSelect}) => {
+const JobTypePicker = ({ roomTypes, onSelect }) => {
 	if (!roomTypes) {
 		return <Alert variant='warning'>No room types available.</Alert>
 	}
@@ -12,7 +12,7 @@ const JobTypePicker = ({roomTypes, onSelect}) => {
 		{roomTypes.map(roomType =>
 			<Card key={roomType.type} className='mb-2'>
 				<Card.Body>
-					<Card.Title>{roomType.displayName}</Card.Title>
+					<Card.Title>{roomType.displayName} {roomType.emoji}</Card.Title>
 					<Card.Text>{roomType.description}</Card.Text>
 					{roomType.active
 						? <FullWidthButton variant='primary' onClick={_ => onSelect(roomType)}>Renovate the {roomType.displayName}!</FullWidthButton>
@@ -21,7 +21,7 @@ const JobTypePicker = ({roomTypes, onSelect}) => {
 				</Card.Body>
 			</Card>
 		)}
-	</>;
+	</>
 }
 
 export default JobTypePicker
