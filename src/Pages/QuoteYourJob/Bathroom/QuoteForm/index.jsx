@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react'
-import { Button, Col, Form, Row } from 'react-bootstrap'
+import { Form, FormCheck } from 'react-bootstrap'
 import FullWidthButton from '../../../../Components/FullWidthButton'
 
 export default ({ onQuote }) => {
@@ -13,7 +13,7 @@ export default ({ onQuote }) => {
 
 	const [vanityCount, setVanityCount] = useState('')
 	const handleVanityCountChange = useCallback(e => {
-		setVanityCount(e.target.value)
+		setVanityCount(e.target.id)
 	}, [setVanityCount])
 
 	const [squareFootageIsInvalid, setSquareFootageIsInvalid] = useState(false)
@@ -46,12 +46,15 @@ export default ({ onQuote }) => {
 				</Form.Text>
 			</Form.Group>
 
-			<Form.Group controlId='vanityCount'>
-				<Form.Label>Single or double vanity?</Form.Label>
-				<br />
-				<Form.Check inline label='Single' type='radio' value='single' checked={vanityCount === 'single'} onChange={handleVanityCountChange} isInvalid={vanityCountIsInvalid} />
-				<Form.Check inline label='Double' type='radio' value='double' checked={vanityCount === 'double'} onChange={handleVanityCountChange} isInvalid={vanityCountIsInvalid} />
-			</Form.Group>
+			<fieldset>
+				<Form.Group controlId='vanityCount'>
+					<Form.Label>
+						Single or double vanity?
+					</Form.Label>
+					<FormCheck type='radio' label='Single' id='single' checked={vanityCount === 'single'} onChange={handleVanityCountChange} isInvalid={vanityCountIsInvalid} />
+					<FormCheck type='radio' label='Double' id='double' checked={vanityCount === 'double'} onChange={handleVanityCountChange} isInvalid={vanityCountIsInvalid} />
+				</Form.Group>
+			</fieldset>
 
 			<FullWidthButton color='primary' type='submit'>
 				Continue to Quote!
