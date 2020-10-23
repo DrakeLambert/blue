@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from 'react'
 import { Button, Col, Form, Row } from 'react-bootstrap'
+import FullWidthButton from '../../../../Components/FullWidthButton'
 
 export default ({ onQuote }) => {
 	const [squareFootage, setSquareFootage] = useState('')
@@ -52,13 +53,9 @@ export default ({ onQuote }) => {
 				<Form.Check inline label='Double' type='radio' value='double' checked={vanityCount === 'double'} onChange={handleVanityCountChange} isInvalid={vanityCountIsInvalid} />
 			</Form.Group>
 
-			<Row>
-				<Col xs='12' sm='auto'>
-					<Button color='primary' className='w-100' type='submit'>
-						Continue to Quote!
-					</Button>
-				</Col>
-			</Row>
+			<FullWidthButton color='primary' type='submit'>
+				Continue to Quote!
+			</FullWidthButton>
 		</Form>
 	</>
 }

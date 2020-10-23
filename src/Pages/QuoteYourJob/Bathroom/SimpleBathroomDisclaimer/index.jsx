@@ -2,7 +2,8 @@ import React from 'react'
 import type1 from './type-1.svg'
 import type2 from './type-2.svg'
 import type3 from './type-3.svg'
-import { Button, Col, Row, Image } from 'react-bootstrap'
+import { Col, Row, Image } from 'react-bootstrap'
+import FullWidthButton from '../../../../Components/FullWidthButton'
 
 const types = [type1, type2, type3]
 	.map((type, i) => ({ className }) => <Image src={type} alt={`bathroom type ${i}`} className={className} rounded />)
@@ -26,9 +27,9 @@ export default () => <>
 	<p>If your bathroom has more corners than fingers on your hands or specialty fixtures, we'll in touch later on to talk options!</p>
 	<Row>
 		<Col xs='12' sm='auto'>
-			<Button color='primary' className='w-100'>
+			<FullWidthButton color='primary' className='w-100'>
 				Continue To Quote!
-			</Button>
+			</FullWidthButton>
 		</Col>
 	</Row>
 </>

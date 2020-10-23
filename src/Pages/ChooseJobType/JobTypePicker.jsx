@@ -1,7 +1,7 @@
 import Alert from 'react-bootstrap/Alert'
-import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
 import React from 'react'
+import FullWidthButton from '../../Components/FullWidthButton'
 
 const JobTypePicker = ({roomTypes, onSelect}) => {
 	if (!roomTypes) {
@@ -15,8 +15,8 @@ const JobTypePicker = ({roomTypes, onSelect}) => {
 					<Card.Title>{roomType.displayName}</Card.Title>
 					<Card.Text>{roomType.description}</Card.Text>
 					{roomType.active
-						? <Button variant='primary' onClick={_ => onSelect(roomType)}>Renovate the {roomType.displayName}!</Button>
-						: <Button variant='warning' disabled>Under Construction!</Button>
+						? <FullWidthButton variant='primary' onClick={_ => onSelect(roomType)}>Renovate the {roomType.displayName}!</FullWidthButton>
+						: <FullWidthButton variant='warning' disabled>Under Construction!</FullWidthButton>
 					}
 				</Card.Body>
 			</Card>
