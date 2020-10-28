@@ -1,10 +1,10 @@
 import React, { useCallback } from 'react'
 import JobTypePicker from './JobTypePicker'
 import roomTypes from './room-types.json'
-import {  useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { routes } from '..'
 
-const ChooseJobType = () => {
+export default () => {
 	const history = useHistory()
 
 	const handleOnSelect = useCallback(
@@ -15,5 +15,3 @@ const ChooseJobType = () => {
 
 	return <JobTypePicker roomTypes={roomTypes} onSelect={handleOnSelect} />
 }
-
-export default ChooseJobType

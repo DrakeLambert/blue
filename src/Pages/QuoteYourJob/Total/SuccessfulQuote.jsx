@@ -1,9 +1,13 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import FullWidthButton from '../../../Components/FullWidthButton'
 
 const currencyFormatter = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' })
 
 export default props => {
+	const handleLockInClick = useCallback(() => {
+		
+	}, [])
+
 	const {
 		quote,
 		roomType
@@ -19,6 +23,6 @@ export default props => {
 		<p>This price includes all taxes and fees!</p>
 		<h5>Next:</h5>
 		<p>Get your free sample box! We'll ship all of our top tier material choices to your doorstep.</p>
-		<FullWidthButton color='primary'>Lock in Quote!</FullWidthButton>
+		<FullWidthButton color='primary' onClick={}>Lock in Quote!</FullWidthButton>
 	</>
 }
