@@ -43,7 +43,7 @@ module.exports = {
 		}),
 		new CopyPlugin({
 			patterns: [
-				'eng/routes.json',
+				'routes.json',
 			]
 		})
 	],
