@@ -11,7 +11,7 @@ export const routes = {
 
 const App = () =>
 	<Router>
-		<Container className='pt-3'>
+		<Container className='py-3'>
 			<Switch>
 				<Route path={routes.chooseJobType} component={ChooseJobType} />
 				<Route path={routes.quoteYourJob} component={QuoteYourJob} />
