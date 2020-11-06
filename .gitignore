@@ -3,3 +3,4 @@ app/dist
 
 api/obj
 api/bin
+api/local.settings.json
