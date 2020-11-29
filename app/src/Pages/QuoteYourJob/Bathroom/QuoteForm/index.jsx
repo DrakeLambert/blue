@@ -2,6 +2,9 @@ import React, { useState, useCallback } from 'react'
 import { Form, FormCheck } from 'react-bootstrap'
 import FullWidthButton from '../../../../Components/FullWidthButton'
 
+const singleVanity = 'single'
+const doubleVanity = 'double'
+
 export default ({ onQuote }) => {
 	const [squareFootage, setSquareFootage] = useState('')
 	const handleSquareFootageChange = useCallback(e => {
@@ -29,8 +32,8 @@ export default ({ onQuote }) => {
 
 		if (isSquareFootageValid && isVanityCountValid) {
 			onQuote({
-				squareFootage,
-				vanityCount
+				squareFootage: Number.parseFloat(squareFootage),
+				vanityCount: vanityCount === singleVanity ? 1 : 2
 			})
 		}
 	}, [squareFootage, vanityCount])
@@ -51,8 +54,8 @@ export default ({ onQuote }) => {
 					<Form.Label>
 						Single or double vanity?
 					</Form.Label>
-					<FormCheck type='radio' label='Single' id='single' checked={vanityCount === 'single'} onChange={handleVanityCountChange} isInvalid={vanityCountIsInvalid} />
-					<FormCheck type='radio' label='Double' id='double' checked={vanityCount === 'double'} onChange={handleVanityCountChange} isInvalid={vanityCountIsInvalid} />
+					<FormCheck type='radio' label='Single' id={singleVanity} checked={vanityCount === singleVanity} onChange={handleVanityCountChange} isInvalid={vanityCountIsInvalid} />
+					<FormCheck type='radio' label='Double' id={doubleVanity} checked={vanityCount === doubleVanity} onChange={handleVanityCountChange} isInvalid={vanityCountIsInvalid} />
 				</Form.Group>
 			</fieldset>
 

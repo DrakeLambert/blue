@@ -13,7 +13,7 @@ const getQuote = ({roomType, ...roomDetails}) => {
         squareFootage,
         vanityCount
       } = roomDetails
-      const isSingleVanity = vanityCount === 'single'
+      const isSingleVanity = vanityCount === 1
       const total = squareFootage * (isSingleVanity
         ? 144
         : 152
