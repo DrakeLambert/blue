@@ -1,21 +1,62 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useState } from 'react'
 import { Col, Form } from 'react-bootstrap'
+import { useForm } from 'react-hook-form'
 import { useHistory } from 'react-router-dom'
 import FullWidthButton from '../../../Components/FullWidthButton'
+import lockInQuote from './lockInQuote'
 
 const currencyFormatter = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' })
+
+const fields = Object.entries({
+	firstName: { label: 'First Name' },
+	lastName: { label: 'Last Name' },
+	email: { label: 'Email', inputMode: 'email' },
+	address1: { label: 'Address line 1' },
+	address2: { label: 'Address line 2', notRequired: true },
+	city: { label: 'City' },
+	state: { label: 'State' },
+	zip: { label: 'Zip code', inputMode: 'numeric' },
+	phoneNumber: { label: 'Phone number', inputMode: 'tel' }
+}).map(([key, value]) => ({
+	...value, id: key
+})).reduce((xs, x) => ({ ...xs, [x.id]: { ...x } }), {})
 
 export default props => {
 	const history = useHistory()
 
-	const handleSubmit = useCallback(() => {
-	}, [history])
+	const { register, handleSubmit, errors } = useForm()
+
+	for (const field in fields) {
+		fields[field].register = register
+		fields[field].errors = errors
+	}
 
 	const {
 		quote,
-		roomType
+		roomDetails
 	} = props
+
+	const roomType = roomDetails.roomType
+
+	const onSubmit = useCallback(formValues => {
+		const quoteInformation = {
+			...quote,
+			roomDetails
+		}
+		lockInQuote(formValues, quoteInformation)
+			.then(() => {
+				console.log('quote locked in')
+			})
+	}, [quote, roomType, lockInQuote])
+
+	const [quoteLockInLoading, setQuoteLockInLoading] = useState(false)
+
+	if (quoteLockInLoading) {
+		return <h4>Locking in your quote...</h4>
+	}
+
 	const formattedTotal = currencyFormatter.format(quote.total)
+
 	return <>
 		<h4>Here's your {roomType} quote!</h4>
 		<div className='w-100 text-center my-4'>
@@ -26,48 +67,19 @@ export default props => {
 		<p>This price includes all taxes and fees!</p>
 		<h5>Next:</h5>
 		<p>Get your free sample box and lock in your quote! We'll ship all of our top tier material choices to your doorstep this week.</p>
-		<Form onSubmit={handleSubmit}>
+		<Form onSubmit={handleSubmit(onSubmit)}>
 			<Form.Row>
-				<Form.Group as={Col} controlId='firstName'>
-					<Form.Label>First Name</Form.Label>
-					<Form.Control />
-				</Form.Group>
-
-				<Form.Group as={Col} controlId='lastName'>
-					<Form.Label>Last Name</Form.Label>
-					<Form.Control />
-				</Form.Group>
+				<FormField {...fields.firstName} as={Col} />
+				<FormField {...fields.lastName} as={Col} />
 			</Form.Row>
 
-			<Form.Group controlId='address1'>
-				<Form.Label>Address line 1</Form.Label>
-				<Form.Control />
-			</Form.Group>
-
-			<Form.Group controlId='address2'>
-				<Form.Label>Address line 2</Form.Label>
-				<Form.Control />
-			</Form.Group>
-
-			<Form.Group controlId='city'>
-				<Form.Label>City</Form.Label>
-				<Form.Control />
-			</Form.Group>
-
-			<Form.Group controlId='state'>
-				<Form.Label>State</Form.Label>
-				<Form.Control />
-			</Form.Group>
-
-			<Form.Group controlId='zip'>
-				<Form.Label inputMode='numeric'>Zip code</Form.Label>
-				<Form.Control />
-			</Form.Group>
-
-			<Form.Group controlId='zip'>
-				<Form.Label inputMode='tel'>Phone number</Form.Label>
-				<Form.Control />
-			</Form.Group>
+			<FormField {...fields.email} />
+			<FormField {...fields.address1} />
+			<FormField {...fields.address2} />
+			<FormField {...fields.city} />
+			<FormField {...fields.state} />
+			<FormField {...fields.zip} />
+			<FormField {...fields.phoneNumber} />
 
 			<FullWidthButton color='primary' type='submit'>
 				Lock in Quote!
@@ -75,3 +87,8 @@ export default props => {
 		</Form>
 	</>
 }
+
+const FormField = ({ id, label, inputMode, as, register, notRequired = false, errors }) => <Form.Group as={as} controlId={id}>
+	<Form.Label inputMode={inputMode}>{label}</Form.Label>
+	<Form.Control name={id} ref={register({ required: !notRequired })} isInvalid={errors[id]} />
+</Form.Group>

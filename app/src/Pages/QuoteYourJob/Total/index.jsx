@@ -21,7 +21,7 @@ export default ({ roomDetails }) => {
 
 	switch (quote?.success) {
 		case true:
-			return <SuccessfulQuote quote={quote} roomType={roomDetails.roomType} />
+			return <SuccessfulQuote quote={quote} roomDetails={roomDetails} />
 		case false:
 			return <FailedQuote quote={quote} />
 		default:
