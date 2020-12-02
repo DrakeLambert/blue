@@ -1,7 +1,9 @@
 import React, { useCallback, useState } from 'react'
 import { Redirect, Route, Switch, useHistory, useRouteMatch } from 'react-router-dom'
 import Bathroom from './Bathroom'
+import FailedQuote from './FailedQuote'
 import RoomUnderConstruction from './RoomUnderConstruction'
+import SuccessfulQuote from './SuccessfulQuote'
 import Total from './Total'
 
 export default () => {
@@ -34,6 +36,14 @@ const QuoteYourJobRouter = () => {
 
 		<Route exact path={url + '/total'} >
 			<Total roomDetails={roomDetails} />
+		</Route>
+
+		<Route exact path={url + '/success'} >
+			<SuccessfulQuote />
+		</Route>
+
+		<Route exact path={url + '/failure'} >
+			<FailedQuote />
 		</Route>
 
 		<Route exact path={url} >
