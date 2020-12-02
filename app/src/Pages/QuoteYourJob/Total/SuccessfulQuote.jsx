@@ -45,7 +45,10 @@ export default props => {
 		}
 		lockInQuote(formValues, quoteInformation)
 			.then(() => {
-				console.log('quote locked in')
+				alert("Quote Lock In Request Received")
+			})
+			.catch(() => {
+				alert("Error Sending Quote Request")
 			})
 	}, [quote, roomType, lockInQuote])
 
@@ -66,7 +69,7 @@ export default props => {
 		<p>You'll pay {formattedTotal} to remodel your {quote.description}.</p>
 		<p>This price includes all taxes and fees!</p>
 		<h5>Next:</h5>
-		<p>Get your free sample box and lock in your quote! We'll ship all of our top tier material choices to your doorstep this week.</p>
+		<p>Get your free sample box and lock in your quote! We'll ship all of our top tier material choices to your doorstep within a week.</p>
 		<Form onSubmit={handleSubmit(onSubmit)}>
 			<Form.Row>
 				<FormField {...fields.firstName} as={Col} />
