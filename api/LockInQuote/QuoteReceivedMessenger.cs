@@ -4,47 +4,45 @@ using System.Text.Json;
 using System.Linq;
 using Microsoft.Extensions.Options;
 using Refit;
+using Api.Email;
+using System;
 
 namespace Api.LockInQuote
 {
     public class QuoteReceivedMessenger
     {
-        private readonly ApiOptions _options;
+        private readonly Options _options;
         private readonly ILogger _logger;
-        private readonly IMailgunApi _mailGunApi;
+        private readonly IEmailMessageSender _emailSender;
 
         private static readonly JsonSerializerOptions _jsonOptions = new JsonSerializerOptions { WriteIndented = true };
 
-        public QuoteReceivedMessenger(IOptionsSnapshot<ApiOptions> options, ILogger<QuoteReceivedMessenger> logger, IMailgunApi mailGunApi)
+        public QuoteReceivedMessenger(IOptionsSnapshot<Options> options, ILogger<QuoteReceivedMessenger> logger, IEmailMessageSender emailSender)
         {
             _options = options.Value;
             _logger = logger;
-            _mailGunApi = mailGunApi;
+            _emailSender = emailSender;
         }
 
         public async Task SendMessageAsync(Request request)
         {
             _logger.LogInformation("Sending email for new quote request.");
 
-            var message = new MailgunMessage
+            var message = new EmailMessage
             {
-                From = _options.FromEmailAddress,
-                To = _options.ToEmailAddresses.Aggregate((rest, next) => rest + "," + next),
+                FromEmailUserName = "blue-no-reply",
+                ToEmailAddress = _options.ToEmailAddresses.Aggregate((rest, next) => rest + "," + next),
                 Subject = "Blue: New Quote Locked In",
                 Text = JsonSerializer.Serialize(request, _jsonOptions)
             };
 
             try
             {
-
-                await _mailGunApi.SendMessage(_options.MailgunDomain, message);
+                await _emailSender.SendMessageAsync(message);
             }
-            catch (ApiException apiException)
+            catch (Exception exception)
             {
-                var sendingException = QuoteReceivedMessengerException.SendingFailed();
-
-                _logger.LogError(sendingException, "Error sending email. SendGrid response: {code} {body}", apiException.StatusCode, apiException.Content);
-
+                var sendingException = QuoteReceivedMessengerException.SendingFailed(exception);
                 throw sendingException;
             }
         }

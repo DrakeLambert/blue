@@ -5,37 +5,18 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
-using Refit;
 
-namespace Api.LockInQuote
+namespace Api.Email.Mailgun
 {
-    public interface IMailgunApi
-    {
-        [Post("/v3/{domain}/messages")]
-        Task SendMessage(string domain, [Body(BodySerializationMethod.UrlEncoded)] MailgunMessage message);
-    }
-
-    public class MailgunMessage
-    {
-        [AliasAs("to")]
-        public string To { get; set; }
-        [AliasAs("from")]
-        public string From { get; set; }
-        [AliasAs("subject")]
-        public string Subject { get; set; }
-        [AliasAs("text")]
-        public string Text { get; set; }
-    }
-
     public class MailgunAuthenticationHandler : DelegatingHandler
     {
         private readonly string _apiKey;
 
         private const string _userName = "api";
 
-        public MailgunAuthenticationHandler(IOptionsSnapshot<ApiOptions> options)
+        public MailgunAuthenticationHandler(IOptionsSnapshot<MailgunOptions> options)
         {
-            _apiKey = options.Value.MailgunApiKey;
+            _apiKey = options.Value.ApiKey;
         }
 
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
