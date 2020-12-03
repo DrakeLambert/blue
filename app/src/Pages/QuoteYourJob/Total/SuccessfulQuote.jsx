@@ -44,11 +44,12 @@ export default props => {
 			roomDetails
 		}
 		lockInQuote(formValues, quoteInformation)
-			.then(() => {
-				alert("Quote Lock In Request Received")
-			})
-			.catch(() => {
-				alert("Error Sending Quote Request")
+			.then((response) => {
+				if (response.ok) {
+					alert("Quote Lock In Request Received")
+				} else {
+					alert("Error Sending Quote Request")
+				}
 			})
 	}, [quote, roomType, lockInQuote])
 
