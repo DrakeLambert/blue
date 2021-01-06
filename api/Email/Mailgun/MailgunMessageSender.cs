@@ -27,7 +27,7 @@ namespace Api.Email.Mailgun
 
             var request = new MailgunRequest
             {
-                From = $"{message.FromEmailUserName}@{Domain}",
+                From = $"{message.FromEmailUserName}@{_options.Domain}",
                 To = message.ToEmailAddress,
                 Subject = message.Subject,
                 Text = message.Text
