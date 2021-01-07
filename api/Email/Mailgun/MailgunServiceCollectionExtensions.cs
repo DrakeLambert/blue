@@ -13,6 +13,7 @@ namespace Api.Email.Mailgun
             .AddOptions<MailgunOptions>()
                 .Configure<IConfiguration>((options, configuration) =>
                     configuration.GetSection("mailgun").Bind(options))
+                .ValidateDataAnnotations()
                 .Services
             .AddTransient<MailgunAuthenticationHandler>()
             .AddRefitClient<IMailgunApi>()

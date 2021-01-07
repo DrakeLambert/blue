@@ -28,13 +28,11 @@ namespace Api.LockInQuote
         {
             _logger.LogInformation("Sending email for new quote request.");
 
-            var message = new EmailMessage
-            {
-                FromEmailUserName = "blue-no-reply",
-                ToEmailAddress = _options.ToEmailAddresses.Aggregate((rest, next) => rest + "," + next),
-                Subject = "Blue: New Quote Locked In",
-                Text = JsonSerializer.Serialize(request, _jsonOptions)
-            };
+            var subject = "Blue: New Quote Locked In";
+            var message = new EmailMessage(
+                _options.ToEmailAddresses,
+                subject,
+                text: JsonSerializer.Serialize(request, _jsonOptions));
 
             try
             {
