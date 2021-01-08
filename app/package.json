@@ -1,5 +1,5 @@
 {
-  "name": "blue",
+  "name": "rediggs",
   "version": "1.0.0",
   "description": "",
   "private": true,
@@ -10,11 +10,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DrakeLambert/blue"
+    "url": "git+https://github.com/DrakeLambert/rediggs"
   },
   "author": "Drake Lambert",
   "bugs": {
-    "url": "https://github.com/DrakeLambert/blue"
+    "url": "https://github.com/DrakeLambert/rediggs"
   },
   "homepage": "",
   "devDependencies": {

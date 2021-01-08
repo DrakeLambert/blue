@@ -1,9 +1,7 @@
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
-using System.Linq;
 using Microsoft.Extensions.Options;
-using Refit;
 using Api.Email;
 using System;
 
@@ -28,7 +26,7 @@ namespace Api.LockInQuote
         {
             _logger.LogInformation("Sending email for new quote request.");
 
-            var subject = "Blue: New Quote Locked In";
+            var subject = "ReDiggs: New Quote Locked In";
             var message = new EmailMessage(
                 _options.ToEmailAddresses,
                 subject,
