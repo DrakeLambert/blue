@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react'
-import { Col, Form } from 'react-bootstrap'
+import { Col, Form, Spinner } from 'react-bootstrap'
 import { useForm } from 'react-hook-form'
 import { useHistory } from 'react-router-dom'
 import FullWidthButton from '../../../Components/FullWidthButton'
@@ -43,21 +43,21 @@ export default props => {
 			...quote,
 			roomDetails
 		}
+		setQuoteLockInLoading(true)
 		lockInQuote(formValues, quoteInformation)
 			.then((response) => {
 				if (response.ok) {
-					alert("Quote Lock In Request Received")
+					alert('Quote Lock In Request Received')
 				} else {
-					alert("Error Sending Quote Request")
+					alert('Error Sending Quote Request')
 				}
 			})
-	}, [quote, roomType, lockInQuote])
+			.finally(() => {
+				setQuoteLockInLoading(false)
+			})
+	}, [quote, roomType, lockInQuote, setQuoteLockInLoading])
 
 	const [quoteLockInLoading, setQuoteLockInLoading] = useState(false)
-
-	if (quoteLockInLoading) {
-		return <h4>Locking in your quote...</h4>
-	}
 
 	const formattedTotal = currencyFormatter.format(quote.total)
 
@@ -85,7 +85,16 @@ export default props => {
 			<FormField {...fields.zip} />
 			<FormField {...fields.phoneNumber} />
 
-			<FullWidthButton color='primary' type='submit'>
+			<FullWidthButton color='primary' type='submit' disabled={quoteLockInLoading}>
+				{quoteLockInLoading &&
+					<Spinner
+						as='span'
+						animation='border'
+						size='sm'
+						role='status'
+						aria-hidden='true'
+						className='mr-2'
+					/>}
 				Lock in Quote!
 			</FullWidthButton>
 		</Form>
