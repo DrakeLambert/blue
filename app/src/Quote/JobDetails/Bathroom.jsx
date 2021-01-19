@@ -1,11 +1,11 @@
 import React, { useState, useCallback } from 'react'
 import { Form, FormCheck } from 'react-bootstrap'
-import FullWidthButton from '../../../../Components/FullWidthButton'
+import FullWidthButton from '../../Components/FullWidthButton'
 
 const singleVanity = 'single'
 const doubleVanity = 'double'
 
-export default ({ onQuote }) => {
+export default ({ onSubmit }) => {
 	const [squareFootage, setSquareFootage] = useState('')
 	const handleSquareFootageChange = useCallback(e => {
 		const newValue = e.target.value
@@ -31,7 +31,8 @@ export default ({ onQuote }) => {
 		setVanityCountIsInvalid(!isVanityCountValid)
 
 		if (isSquareFootageValid && isVanityCountValid) {
-			onQuote({
+			onSubmit({
+				jobType: 'bathroom',
 				squareFootage: Number.parseFloat(squareFootage),
 				vanityCount: vanityCount === singleVanity ? 1 : 2
 			})

@@ -1,8 +1,7 @@
 import React from 'react'
 import { useCallback } from 'react'
 import { useHistory } from 'react-router-dom'
-import { routes } from '../..'
-import FullWidthButton from '../../../Components/FullWidthButton'
+import FullWidthButton from '../../Components/FullWidthButton'
 
 export default props => {
 	const {
@@ -10,15 +9,15 @@ export default props => {
 	} = props
 
 	const history = useHistory()
-	const handleQuoteDifferentRoom = useCallback(() => {
-		history.push(routes.chooseJobType)
+	const handleQuoteDifferentJob = useCallback(() => {
+		history.push('/quote')
 	}, [history])
 
 	return <>
 		<h4>There was an issue generating your quote 😢</h4>
 		<p>{quote.description}</p>
-		<FullWidthButton color='primary' onClick={handleQuoteDifferentRoom}>
-			Quote a Different Room
+		<FullWidthButton color='primary' onClick={handleQuoteDifferentJob}>
+			Quote a Different Job
 		</FullWidthButton>
 	</>
 }

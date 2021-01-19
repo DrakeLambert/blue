@@ -1,9 +1,8 @@
 import React, { useCallback, useState } from 'react'
 import { Col, Form, Spinner } from 'react-bootstrap'
 import { useForm } from 'react-hook-form'
-import { useHistory } from 'react-router-dom'
-import FullWidthButton from '../../../Components/FullWidthButton'
-import lockInQuote from './lockInQuote'
+import FullWidthButton from '../../Components/FullWidthButton'
+import lockInQuote from './LockInQuote'
 
 const currencyFormatter = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' })
 
@@ -22,8 +21,6 @@ const fields = Object.entries({
 })).reduce((xs, x) => ({ ...xs, [x.id]: { ...x } }), {})
 
 export default props => {
-	const history = useHistory()
-
 	const { register, handleSubmit, errors } = useForm()
 
 	for (const field in fields) {
@@ -33,21 +30,22 @@ export default props => {
 
 	const {
 		quote,
-		roomDetails
+		jobDetails,
+		onLockIn
 	} = props
 
-	const roomType = roomDetails.roomType
+	const jobType = jobDetails.jobType
 
 	const onSubmit = useCallback(formValues => {
 		const quoteInformation = {
 			...quote,
-			roomDetails
+			jobDetails
 		}
 		setQuoteLockInLoading(true)
 		lockInQuote(formValues, quoteInformation)
 			.then((response) => {
 				if (response.ok) {
-					alert('Quote Lock In Request Received')
+					onLockIn(formValues, quoteInformation)
 				} else {
 					alert('Error Sending Quote Request')
 				}
@@ -55,14 +53,14 @@ export default props => {
 			.finally(() => {
 				setQuoteLockInLoading(false)
 			})
-	}, [quote, roomType, lockInQuote, setQuoteLockInLoading])
+	}, [quote, jobType, lockInQuote, setQuoteLockInLoading, onLockIn])
 
 	const [quoteLockInLoading, setQuoteLockInLoading] = useState(false)
 
 	const formattedTotal = currencyFormatter.format(quote.total)
 
 	return <>
-		<h4>Here's your {roomType} quote!</h4>
+		<h4>Here's your {jobType} quote!</h4>
 		<div className='w-100 text-center my-4'>
 			<h1 >{formattedTotal}</h1>
 			<h5>We see 🛠 in your future!</h5>

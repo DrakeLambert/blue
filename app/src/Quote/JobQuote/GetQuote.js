@@ -1,18 +1,18 @@
-export default roomDetails => {
+export default jobDetails => {
   return new Promise(resolve => {
     window.setTimeout(() => {
-      resolve(getQuote(roomDetails))
+      resolve(getQuote(jobDetails))
     }, 2)
   })
 }
 
-const getQuote = ({roomType, ...roomDetails}) => {
-  switch (roomType) {
+const getQuote = ({jobType, ...jobDetails}) => {
+  switch (jobType) {
     case 'bathroom':
       const {
         squareFootage,
         vanityCount
-      } = roomDetails
+      } = jobDetails
       const isSingleVanity = vanityCount === 1
       const total = squareFootage * (isSingleVanity
         ? 144
@@ -28,7 +28,7 @@ const getQuote = ({roomType, ...roomDetails}) => {
     default:
       return {
         success: false,
-        description: `The ${roomType} quoter hasn't been built yet!`
+        description: `The ${jobType} quoter hasn't been built yet!`
       }
   }
 }
