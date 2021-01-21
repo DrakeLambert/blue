@@ -46,7 +46,10 @@ export default ({ onSubmit }) => {
 				<Form.Label>What's the square footage?</Form.Label>
 				<Form.Control inputMode='numeric' value={squareFootage} onChange={handleSquareFootageChange} isInvalid={squareFootageIsInvalid} />
 				<Form.Text className='text-muted'>
-					Account for all the space in your bathroom: even the room taken up by the tub and closets.
+					Start by measuring the length and width of your bathroom. Include the space taken up by the tub, toilet, and vanity. Multiply the length and width to get your square footage.
+					<br />
+					<br />
+					If you have closets, measure their square footage and add it to your total.
 				</Form.Text>
 			</Form.Group>
 
