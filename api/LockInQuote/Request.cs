@@ -10,7 +10,7 @@ namespace Api.LockInQuote
         {
             public string Description { get; set; }
             public decimal Total { get; set; }
-            public BathroomDetails RoomDetails { get; set; }
+            public BathroomDetails JobDetails { get; set; }
         }
 
         public class ContactInformationRequest
@@ -26,12 +26,12 @@ namespace Api.LockInQuote
         }
     }
 
-    public abstract class RoomDetails
+    public abstract class JobDetails
     {
-        public string RoomType { get; set; }
+        public string JobType { get; set; }
     }
 
-    public class BathroomDetails : RoomDetails
+    public class BathroomDetails : JobDetails
     {
         public int SquareFootage { get; set; }
         public int VanityCount { get; set; }

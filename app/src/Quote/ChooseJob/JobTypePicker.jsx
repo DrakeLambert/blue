@@ -5,10 +5,10 @@ import FullWidthButton from '../../Components/FullWidthButton'
 
 const JobTypePicker = ({ jobTypes, onSelect }) => {
 	if (!jobTypes) {
-		return <Alert variant='warning'>No room types available.</Alert>
+		return <Alert variant='warning'>No job types available.</Alert>
 	}
 	return <>
-		<h4>Choose your room type:</h4>
+		<h4>Choose your job type:</h4>
 		{jobTypes.map(jobType =>
 			<Card key={jobType.type} className='mb-2'>
 				<Card.Body>
