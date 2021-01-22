@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react'
-import { Col, Form, Spinner } from 'react-bootstrap'
 import { useForm } from 'react-hook-form'
 import FullWidthButton from '../../Components/FullWidthButton'
+import Loader from '../../Components/Loader'
 import lockInQuote from './LockInQuote'
 
 const currencyFormatter = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' })
@@ -69,11 +69,11 @@ export default props => {
 		<p>This price includes all taxes and fees!</p>
 		<h5>Next:</h5>
 		<p>Get your free sample box and lock in your quote! We'll ship all of our top tier material choices to your doorstep within a week.</p>
-		<Form onSubmit={handleSubmit(onSubmit)}>
-			<Form.Row>
-				<FormField {...fields.firstName} as={Col} />
-				<FormField {...fields.lastName} as={Col} />
-			</Form.Row>
+		<form onSubmit={handleSubmit(onSubmit)}>
+			<div className='row'>
+				<FormField {...fields.firstName} className='col' />
+				<FormField {...fields.lastName} className='col' />
+			</div>
 
 			<FormField {...fields.email} />
 			<FormField {...fields.address1} />
@@ -83,23 +83,14 @@ export default props => {
 			<FormField {...fields.zip} />
 			<FormField {...fields.phoneNumber} />
 
-			<FullWidthButton color='primary' type='submit' disabled={quoteLockInLoading}>
-				{quoteLockInLoading &&
-					<Spinner
-						as='span'
-						animation='border'
-						size='sm'
-						role='status'
-						aria-hidden='true'
-						className='mr-2'
-					/>}
+			<FullWidthButton type='submit' isDisabledLoading={quoteLockInLoading}>
 				Lock in Quote!
 			</FullWidthButton>
-		</Form>
+		</form>
 	</>
 }
 
-const FormField = ({ id, label, inputMode, as, register, notRequired = false, errors }) => <Form.Group as={as} controlId={id}>
-	<Form.Label inputMode={inputMode}>{label}</Form.Label>
-	<Form.Control name={id} ref={register({ required: !notRequired })} isInvalid={errors[id]} />
-</Form.Group>
+const FormField = ({ id, label, inputMode, register, notRequired = false, errors, className }) => <div className={'mb-3 ' + className}>
+	<label className='form-label' htmlFor={id}>{label}</label>
+	<input className={'form-control' + (errors[id] ? ' is-invalid' : '')} name={id} id={id} inputMode={inputMode} ref={register({ required: !notRequired })} />
+</div>

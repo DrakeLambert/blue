@@ -16,7 +16,7 @@ export default props => {
 	return <>
 		<h4>There was an issue generating your quote 😢</h4>
 		<p>{quote.description}</p>
-		<FullWidthButton color='primary' onClick={handleQuoteDifferentJob}>
+		<FullWidthButton onClick={handleQuoteDifferentJob}>
 			Quote a Different Job
 		</FullWidthButton>
 	</>

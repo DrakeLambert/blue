@@ -1,6 +1,7 @@
 import React from 'react'
-import { Spinner } from 'react-bootstrap'
 
-export default () => <div className='position-fixed h-100 w-100 d-flex flex-column justify-content-around'>
-  <Spinner animation='border' className='m-auto d-block' />
+export default () => <div className='fixed-top h-100 w-100 d-flex flex-column justify-content-around'>
+  <div className='spinner-border m-auto' role='status'>
+    <span className='visually-hidden'>Loading...</span>
+  </div>
 </div>

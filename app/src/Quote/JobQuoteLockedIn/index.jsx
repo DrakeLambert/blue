@@ -9,7 +9,7 @@ export default ({ quoteInformation }) => {
     </div>
     <p>We'll put together your samples box and get it sent over!</p>
     <p>In the meantime, keep an eye on your email for contact from us. Your renovation guide will reach out soon.</p>
-    <FullWidthButton href='https://www.rediggs.com/'>
+    <FullWidthButton href='https://www.rediggs.com/' as={'a'}>
       Return Home
     </FullWidthButton>
   </div>

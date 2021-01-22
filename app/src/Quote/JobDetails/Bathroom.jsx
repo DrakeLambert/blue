@@ -1,5 +1,4 @@
 import React, { useState, useCallback } from 'react'
-import { Form, FormCheck } from 'react-bootstrap'
 import FullWidthButton from '../../Components/FullWidthButton'
 
 const singleVanity = 'single'
@@ -41,31 +40,43 @@ export default ({ onSubmit }) => {
 
 	return <>
 		<h4>This is all we need to know!</h4>
-		<Form onSubmit={handleSubmit}>
-			<Form.Group controlId='squareFootage'>
-				<Form.Label>What's the square footage?</Form.Label>
-				<Form.Control inputMode='numeric' value={squareFootage} onChange={handleSquareFootageChange} isInvalid={squareFootageIsInvalid} />
-				<Form.Text className='text-muted'>
-					Start by measuring the length and width of your bathroom. Include the space taken up by the tub, toilet, and vanity. Multiply the length and width to get your square footage.
-					<br />
-					<br />
-					If you have closets, measure their square footage and add it to your total.
-				</Form.Text>
-			</Form.Group>
+		<form onSubmit={handleSubmit}>
+			<div className='mb-3'>
+				<label htmlFor='squareFootage' className='form-label'>What's the square footage?</label>
+				<input id='squareFootage' inputMode='numeric' className={'form-control' + (squareFootageIsInvalid ? ' is-invalid' : '')} aria-describedby='squareFootageHelp' value={squareFootage} onChange={handleSquareFootageChange} />
+				<div className='form-text' id='squareFootageHelp'>
+					<ol className='ps-3'>
+						<li>
+							Measuring the length and width of your bathroom. Include the space taken up by the tub, toilet, and vanity.
+						</li>
+						<li>
+							Multiply the length and width to get your square footage.
+						</li>
+						<li>
+							If you have closets, measure their square footage and add it to your total.
+						</li>
+					</ol>
+				</div>
+			</div>
 
-			<fieldset>
-				<Form.Group controlId='vanityCount'>
-					<Form.Label>
-						Single or double vanity?
-					</Form.Label>
-					<FormCheck type='radio' label='Single' id={singleVanity} checked={vanityCount === singleVanity} onChange={handleVanityCountChange} isInvalid={vanityCountIsInvalid} />
-					<FormCheck type='radio' label='Double' id={doubleVanity} checked={vanityCount === doubleVanity} onChange={handleVanityCountChange} isInvalid={vanityCountIsInvalid} />
-				</Form.Group>
+			<fieldset className='mb-3'>
+				<label htmlFor='' className='form-label'>
+					Single or double vanity?
+				</label>
+				<RadioButton name='vanityCount' label='Single' id={singleVanity} isChecked={vanityCount === singleVanity} onChange={handleVanityCountChange} isInvalid={vanityCountIsInvalid} />
+				<RadioButton name='vanityCount' label='Double' id={doubleVanity} isChecked={vanityCount === doubleVanity} onChange={handleVanityCountChange} isInvalid={vanityCountIsInvalid} />
 			</fieldset>
 
-			<FullWidthButton color='primary' type='submit'>
+			<FullWidthButton type='submit'>
 				Continue to Quote!
 			</FullWidthButton>
-		</Form>
+		</form>
 	</>
 }
+
+const RadioButton = ({ id, label, isChecked, onChange, isInvalid, name }) => <div className='form-check'>
+	<input className={'form-check-input' + (isInvalid ? ' is-invalid' : '')} type='radio' id={id} name={name} checked={isChecked} onChange={onChange} />
+	<label className='form-check-label' htmlFor={id}>
+		{label}
+	</label>
+</div>

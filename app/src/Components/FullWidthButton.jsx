@@ -1,14 +1,26 @@
 import React from 'react'
-import { Row, Col, Button } from 'react-bootstrap'
 
-export default props => {
+export default ({ variant, className, isDisabledLoading, as, children, ...restButtonProps }) => {
+	variant = (variant ?? 'primary') + ' '
 	const buttonProps = {
-		...props,
-		className: 'w-100 ' + props.className
+		...restButtonProps,
+		className: 'w-100 btn btn-' + variant + className
 	}
-	return <Row>
-		<Col xs='12' sm='auto'>
-			<Button {...buttonProps} />
-		</Col>
-	</Row>
+
+	if (isDisabledLoading) {
+		children = [
+			<span className='spinner-border spinner-border-sm me-2' role='status' aria-hidden='true' key='isDisabledLoadingSpinner' />,
+			...children
+		]
+	}
+
+	const ButtonComponent = as ?? 'button'
+
+	return <div className='row'>
+		<div className='col-12 col-sm-auto'>
+			<ButtonComponent {...buttonProps}>
+				{children}
+			</ButtonComponent>
+		</div>
+	</div>
 }
