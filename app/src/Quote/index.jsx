@@ -48,7 +48,7 @@ export default () => {
 		<Route path={path + routes.jobQuote}>
 			{jobDetails == null
 				? <Redirect to={url + routes.setJobDetails} />
-				: <JobQuote jobDetails={jobDetails} onLockIn={handleSubmitJobQuote} />}
+				: <JobQuote jobDetails={jobDetails} jobType={jobType} onLockIn={handleSubmitJobQuote} />}
 		</Route>
 
 		<Route path={path + routes.jobQuoteLockedIn}>

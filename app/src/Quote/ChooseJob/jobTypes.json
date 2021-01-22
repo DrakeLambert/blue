@@ -4,7 +4,16 @@
     "displayName": "Bathroom",
     "emoji": "🛀",
     "description": "Nothing says clean like a new bathroom. Modernize it with new fixtures, paint, floors, counters, and more!",
-    "active": true
+    "active": true,
+    "includedServices": [
+      "Repair of small sheetrock damages",
+      "New ceramic flooring",
+      "New paint",
+      "New vanity lights",
+      "New vanity counter top",
+      "New vanity fixtures",
+      "New soaker tub and fixtures with tile surround"
+    ]
   },
   {
     "type": "bedroom",

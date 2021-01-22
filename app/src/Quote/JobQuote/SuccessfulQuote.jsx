@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import FullWidthButton from '../../Components/FullWidthButton'
-import Loader from '../../Components/Loader'
+import IncludedServicesExpandableList from '../../Components/IncludedServicesExpandableList'
 import lockInQuote from './LockInQuote'
 
 const currencyFormatter = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' })
@@ -31,10 +31,11 @@ export default props => {
 	const {
 		quote,
 		jobDetails,
-		onLockIn
+		onLockIn,
+		jobType
 	} = props
 
-	const jobType = jobDetails.jobType
+	const jobTypeName = jobDetails.jobType
 
 	const onSubmit = useCallback(formValues => {
 		const quoteInformation = {
@@ -53,19 +54,26 @@ export default props => {
 			.finally(() => {
 				setQuoteLockInLoading(false)
 			})
-	}, [quote, jobType, lockInQuote, setQuoteLockInLoading, onLockIn])
+	}, [quote, jobTypeName, lockInQuote, setQuoteLockInLoading, onLockIn])
 
 	const [quoteLockInLoading, setQuoteLockInLoading] = useState(false)
 
 	const formattedTotal = currencyFormatter.format(quote.total)
 
+	console.log(props)
+
+	const includedServices = Array.isArray(jobType.includedServices)
+		? <IncludedServicesExpandableList serviceDescriptions={jobType.includedServices} jobTypeName={jobTypeName} />
+		: null
+
 	return <>
-		<h4>Here's your {jobType} quote!</h4>
+		<h4>Here's your {jobTypeName} quote!</h4>
 		<div className='w-100 text-center my-4'>
 			<h1 >{formattedTotal}</h1>
 			<h5>We see 🛠 in your future!</h5>
 		</div>
 		<p>You'll pay {formattedTotal} to remodel your {quote.description}.</p>
+		{includedServices}
 		<p>This price includes all taxes and fees!</p>
 		<h5>Next:</h5>
 		<p>Get your free sample box and lock in your quote! We'll ship all of our top tier material choices to your doorstep within a week.</p>
