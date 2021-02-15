@@ -47,7 +47,7 @@ export default ({ onSubmit }) => {
 				<div className='form-text' id='squareFootageHelp'>
 					<ol className='ps-3'>
 						<li>
-							Measuring the length and width of your bathroom. Include the space taken up by the tub, toilet, and vanity.
+							Measure the length and width of your bathroom. Include the space taken up by the tub, toilet, and vanity.
 						</li>
 						<li>
 							Multiply the length and width to get your square footage.
