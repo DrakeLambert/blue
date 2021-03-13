@@ -92,7 +92,7 @@ export default props => {
 			<FormField {...fields.phoneNumber} />
 
 			<FullWidthButton type='submit' isDisabledLoading={quoteLockInLoading}>
-				Lock in Quote!
+				Get Your Free Samples!
 			</FullWidthButton>
 		</form>
 	</>
